@@ -36,26 +36,26 @@ jobs:
           --exclude='README.md' \
           --exclude='.github' \
           -e "ssh -o StrictHostKeyChecking=no" \
-          ./ ${{ secrets.SSH_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.ODOO_MODULES_PATH }}/
+          ./ ${{ secrets.SSH_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.ODOO_MODULES_PATH_TEST }}/
         
         # Restart Odoo service
         echo "🔄 Restarting Odoo service..."
         sshpass -e ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
           # Set proper permissions
-          sudo chown -R odoo:odoo ${{ secrets.ODOO_MODULES_PATH }}
-          sudo chmod -R 755 ${{ secrets.ODOO_MODULES_PATH }}
+          sudo chown -R odoo:odoo ${{ secrets.ODOO_MODULES_PATH_TEST }}
+          sudo chmod -R 755 ${{ secrets.ODOO_MODULES_PATH_TEST }}
           
           # Restart service
-          sudo systemctl restart ${{ secrets.ODOO_SERVICE_NAME }}
+          sudo systemctl restart ${{ secrets.ODOO_SERVICE_NAME_TEST }}
           
           # Wait and check status
           sleep 10
-          if sudo systemctl is-active ${{ secrets.ODOO_SERVICE_NAME }} >/dev/null 2>&1; then
+          if sudo systemctl is-active ${{ secrets.ODOO_SERVICE_NAME_TEST }} >/dev/null 2>&1; then
             echo "✅ Odoo service restarted successfully"
             echo "📅 Deployment completed at: $(date)"
           else
             echo "❌ Failed to restart Odoo service"
-            sudo systemctl status ${{ secrets.ODOO_SERVICE_NAME }}
+            sudo systemctl status ${{ secrets.ODOO_SERVICE_NAME_TEST }}
             exit 1
           fi
         EOF
