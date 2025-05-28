@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+
+    <menuitem id="menu_notification_manager" name="Notification Manager" sequence="1" action="user_notify_action" />
+    
+</odoo>
+
+<!-- parent="hr_attendance.menu_hr_attendance_root" -->
