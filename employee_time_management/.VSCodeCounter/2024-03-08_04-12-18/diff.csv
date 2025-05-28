@@ -1,0 +1,14 @@
+"filename", "language", "Python", "XML", "CSS", "JavaScript", "comment", "blank", "total"
+"e:\docker\custom_16\employee_time_management\models\__init__.py", "Python", 5, 0, 0, 0, 20, 1, 26
+"e:\docker\custom_16\employee_time_management\models\break_timer.py", "Python", 35, 0, 0, 0, 18, 17, 70
+"e:\docker\custom_16\employee_time_management\models\breaktime.py", "Python", 67, 0, 0, 0, 17, 28, 112
+"e:\docker\custom_16\employee_time_management\models\idle_time.py", "Python", 18, 0, 0, 0, 2, 12, 32
+"e:\docker\custom_16\employee_time_management\models\res_users.py", "Python", 17, 0, 0, 0, 21, 4, 42
+"e:\docker\custom_16\employee_time_management\models\shift_management.py", "Python", 38, 0, 0, 0, 0, 11, 49
+"e:\docker\custom_16\employee_time_management\static\description\icon.svg", "XML", 0, -1, 0, 0, 0, 0, -1
+"e:\docker\custom_16\employee_time_management\static\src\css\systray.css", "CSS", 0, 0, -8, 0, 0, 0, -8
+"e:\docker\custom_16\employee_time_management\static\src\js\systray.js", "JavaScript", 0, 0, 0, -96, -152, -9, -257
+"e:\docker\custom_16\employee_time_management\static\src\js\timer.js", "JavaScript", 0, 0, 0, -78, -3, -10, -91
+"e:\docker\custom_16\employee_time_management\static\src\xml\systray.xml", "XML", 0, -11, 0, 0, -1, 0, -12
+"e:\docker\custom_16\employee_time_management\static\src\xml\timer.xml", "XML", 0, -7, 0, 0, 0, -1, -8
+"Total", "-", 180, -19, -8, -174, -78, 53, -46

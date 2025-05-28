@@ -1,0 +1,38 @@
+Date : 2024-03-08 04:12:18
+Directory : e:\docker\custom_16\employee_time_management\models
+Total : 12 files,  180 codes, 78 comments, 73 blanks, all 331 lines
+
+Languages
++---------------+------------+------------+------------+------------+------------+
+| language      | files      | code       | comment    | blank      | total      |
++---------------+------------+------------+------------+------------+------------+
+| Python        |          6 |        180 |         78 |         73 |        331 |
+| (Unsupported) |          6 |          0 |          0 |          0 |          0 |
++---------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                            | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                               |         12 |        180 |         78 |         73 |        331 |
+| __pycache__                                                                                     |          6 |          0 |          0 |          0 |          0 |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------+---------------+------------+------------+------------+------------+
+| filename                                                                                        | language      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------+---------------+------------+------------+------------+------------+
+| e:\docker\custom_16\employee_time_management\models\__init__.py                                 | Python        |          5 |         20 |          1 |         26 |
+| e:\docker\custom_16\employee_time_management\models\__pycache__\__init__.cpython-39.pyc         | (Unsupported) |          0 |          0 |          0 |          0 |
+| e:\docker\custom_16\employee_time_management\models\__pycache__\break_timer.cpython-39.pyc      | (Unsupported) |          0 |          0 |          0 |          0 |
+| e:\docker\custom_16\employee_time_management\models\__pycache__\breaktime.cpython-39.pyc        | (Unsupported) |          0 |          0 |          0 |          0 |
+| e:\docker\custom_16\employee_time_management\models\__pycache__\idle_time.cpython-39.pyc        | (Unsupported) |          0 |          0 |          0 |          0 |
+| e:\docker\custom_16\employee_time_management\models\__pycache__\res_users.cpython-39.pyc        | (Unsupported) |          0 |          0 |          0 |          0 |
+| e:\docker\custom_16\employee_time_management\models\__pycache__\shift_management.cpython-39.pyc | (Unsupported) |          0 |          0 |          0 |          0 |
+| e:\docker\custom_16\employee_time_management\models\break_timer.py                              | Python        |         35 |         18 |         17 |         70 |
+| e:\docker\custom_16\employee_time_management\models\breaktime.py                                | Python        |         67 |         17 |         28 |        112 |
+| e:\docker\custom_16\employee_time_management\models\idle_time.py                                | Python        |         18 |          2 |         12 |         32 |
+| e:\docker\custom_16\employee_time_management\models\res_users.py                                | Python        |         17 |         21 |          4 |         42 |
+| e:\docker\custom_16\employee_time_management\models\shift_management.py                         | Python        |         38 |          0 |         11 |         49 |
+| Total                                                                                           |               |        180 |         78 |         73 |        331 |
++-------------------------------------------------------------------------------------------------+---------------+------------+------------+------------+------------+

@@ -1,0 +1,14 @@
+"filename", "language", "XML", "Python", "comment", "blank", "total"
+"e:\docker\custom_16\employee_time_management\models\__init__.py", "Python", 0, -5, -20, -1, -26
+"e:\docker\custom_16\employee_time_management\models\break_timer.py", "Python", 0, -35, -18, -17, -70
+"e:\docker\custom_16\employee_time_management\models\breaktime.py", "Python", 0, -67, -17, -28, -112
+"e:\docker\custom_16\employee_time_management\models\idle_time.py", "Python", 0, -18, -2, -12, -32
+"e:\docker\custom_16\employee_time_management\models\res_users.py", "Python", 0, -17, -21, -4, -42
+"e:\docker\custom_16\employee_time_management\models\shift_management.py", "Python", 0, -38, 0, -11, -49
+"e:\docker\custom_16\employee_time_management\views\break_view.xml", "XML", 63, 0, 22, 18, 103
+"e:\docker\custom_16\employee_time_management\views\idle_view.xml", "XML", 28, 0, 41, 14, 83
+"e:\docker\custom_16\employee_time_management\views\menu.xml", "XML", 7, 0, 1, 3, 11
+"e:\docker\custom_16\employee_time_management\views\project_task_timer_view.xml", "XML", 27, 0, 1, 6, 34
+"e:\docker\custom_16\employee_time_management\views\res_users_views.xml", "XML", 20, 0, 1, 1, 22
+"e:\docker\custom_16\employee_time_management\views\shift_management.xml", "XML", 31, 0, 41, 15, 87
+"Total", "-", 176, -180, 29, -16, 9

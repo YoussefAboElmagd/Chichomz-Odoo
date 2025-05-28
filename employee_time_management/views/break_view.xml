@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+
+    <record id="view_attendance_tree" model="ir.ui.view">
+        <field name="name">attendance.breaktime.tree</field>
+        <field name="model">attendance.breaktime</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Breaks" >  
+            <!-- editable="bottom" sample="1" -->
+                <field name="employee_id"/>
+                <field name="break_start"/>
+                <field name="break_finish"/>
+                <field name="break_duration" string="Break Time" widget="break_timer"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_attendance_form" model="ir.ui.view">
+        <field name="name">attendance.breaktime.form</field>
+        <field name="model">attendance.breaktime</field>
+        <field name="arch" type="xml">
+                <form>
+
+                    <sheet>
+                        <group>
+                        
+                            <field name="employee_id"/>
+                            <field name="break_start"/>
+                            <field name="break_finish"/>
+                            <field name="break_duration" string="Break Time" widget="break_timer"/>
+                        
+                        </group>
+                    </sheet>
+
+                </form>
+
+        </field>
+    </record>
+
+
+    <record id="breaktime_action_overview" model="ir.actions.act_window">
+        <field name="name">Breaks</field>
+        <field name="res_model">attendance.breaktime</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No break records to display
+            </p><p>
+                Your break records will be displayed here.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="break_time_view_search" model="ir.ui.view">
+        <field name="name">attendance.breaktime.search</field>
+        <field name="model">attendance.breaktime</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Employee" name="employee_id" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Date" name="break_start" context="{'group_by': 'break_start'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!-- <record id="pos_analytic_inherit_view" model="ir.ui.view">
+            <field name="name">pos analytic</field>
+            <field name="model">account.analytic.distribution.model</field>
+            <field name="inherit_id" ref="analytic.account_analytic_distribution_model_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sales_team']" position="after">
+                                <field name="pos_shop" />
+                </xpath>
+            </field>
+    </record> -->
+    <!-- <record id="pos_order_line_analytic_inherit_view" model="ir.ui.view">
+            <field name="name">pos order line analytic</field>
+            <field name="model">account.analytic.distribution.model</field>
+            <field name="inherit_id" ref="analytic.account_analytic_distribution_model_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lines']" position="inside">
+                                <field name="pos_shop" />
+                </xpath>
+            </field>
+    </record> -->
+    <record id="sale_order_list_view_inherit_total" model="ir.ui.view">
+            <field name="name">pos order line analytic</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_untaxed']" position="replace">
+                    <field name="untaxed_amount_signed_sale" sum="Total Amount Without Tax"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_tax']" position="replace">
+                    <field name="tax_total_signed_sale" sum="Total Tax"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="replace">
+                    <field name="amount_total" string="Total in Currency" widget="monetary" decoration-bf="1" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="before">
+                    <field name="amount_total_signed_sale" sum="Total Amount" widget="monetary" optional="show"/>
+                </xpath>
+            </field>
+    </record>
+
+    
+</odoo>
+
+<!-- parent="hr_attendance.menu_hr_attendance_root" -->

@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_res_partner_create_edit,res.partner.create.edit,base.model_res_partner,group_contact_create_edit_ao,1,1,1,0
+access_res_partner_full_access,res.partner.full.access,base.model_res_partner,group_contact_full_ao,1,1,1,1
+access_res_partner_no_access,res.partner.no.access,base.model_res_partner,group_contact_no_ao,0,0,0,0
+
+access_shopify_order_read,shopify.order.read,sale.model_sale_order,group_shopify_order_read_ao,1,0,0,0
+access_shopify_order_create,shopify.order.create,sale.model_sale_order,group_shopify_order_create_ao,1,0,1,0
+access_shopify_order_create_edit,shopify.order.create.edit,sale.model_sale_order,group_shopify_order_create_edit_ao,1,1,1,0
+access_shopify_order_full_access,shopify.order.full.access,sale.model_sale_order,group_shopify_order_full_access_ao,1,1,1,1

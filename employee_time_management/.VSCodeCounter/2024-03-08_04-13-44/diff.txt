@@ -1,0 +1,59 @@
+Date : 2024-03-08 04:13:44
+Directory : e:\docker\custom_16\employee_time_management
+Total : 22 files,  629 codes, 383 comments, 159 blanks, all 1171 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Python     |         10 |        252 |        120 |         82 |        454 |
+| XML        |          9 |        195 |        108 |         58 |        361 |
+| JavaScript |          2 |        174 |        155 |         19 |        348 |
+| CSS        |          1 |          8 |          0 |          0 |          8 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                           | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                              |         22 |        629 |        383 |        159 |      1,171 |
+| . (Files)                                                                      |          2 |         42 |          2 |          2 |         46 |
+| controllers                                                                    |          2 |         30 |         40 |          7 |         77 |
+| models                                                                         |          6 |        180 |         78 |         73 |        331 |
+| static                                                                         |          6 |        201 |        156 |         20 |        377 |
+| static\description                                                             |          1 |          1 |          0 |          0 |          1 |
+| static\src                                                                     |          5 |        200 |        156 |         20 |        376 |
+| static\src\css                                                                 |          1 |          8 |          0 |          0 |          8 |
+| static\src\js                                                                  |          2 |        174 |        155 |         19 |        348 |
+| static\src\xml                                                                 |          2 |         18 |          1 |          1 |         20 |
+| views                                                                          |          6 |        176 |        107 |         57 |        340 |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                       | language   | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| e:\docker\custom_16\employee_time_management\__init__.py                       | Python     |          2 |          0 |          1 |          3 |
+| e:\docker\custom_16\employee_time_management\__manifest__.py                   | Python     |         40 |          2 |          1 |         43 |
+| e:\docker\custom_16\employee_time_management\controllers\__init__.py           | Python     |          1 |         20 |          1 |         22 |
+| e:\docker\custom_16\employee_time_management\controllers\idle_time_user.py     | Python     |         29 |         20 |          6 |         55 |
+| e:\docker\custom_16\employee_time_management\models\__init__.py                | Python     |          5 |         20 |          1 |         26 |
+| e:\docker\custom_16\employee_time_management\models\break_timer.py             | Python     |         35 |         18 |         17 |         70 |
+| e:\docker\custom_16\employee_time_management\models\breaktime.py               | Python     |         67 |         17 |         28 |        112 |
+| e:\docker\custom_16\employee_time_management\models\idle_time.py               | Python     |         18 |          2 |         12 |         32 |
+| e:\docker\custom_16\employee_time_management\models\res_users.py               | Python     |         17 |         21 |          4 |         42 |
+| e:\docker\custom_16\employee_time_management\models\shift_management.py        | Python     |         38 |          0 |         11 |         49 |
+| e:\docker\custom_16\employee_time_management\static\description\icon.svg       | XML        |          1 |          0 |          0 |          1 |
+| e:\docker\custom_16\employee_time_management\static\src\css\systray.css        | CSS        |          8 |          0 |          0 |          8 |
+| e:\docker\custom_16\employee_time_management\static\src\js\systray.js          | JavaScript |         96 |        152 |          9 |        257 |
+| e:\docker\custom_16\employee_time_management\static\src\js\timer.js            | JavaScript |         78 |          3 |         10 |         91 |
+| e:\docker\custom_16\employee_time_management\static\src\xml\systray.xml        | XML        |         11 |          1 |          0 |         12 |
+| e:\docker\custom_16\employee_time_management\static\src\xml\timer.xml          | XML        |          7 |          0 |          1 |          8 |
+| e:\docker\custom_16\employee_time_management\views\break_view.xml              | XML        |         63 |         22 |         18 |        103 |
+| e:\docker\custom_16\employee_time_management\views\idle_view.xml               | XML        |         28 |         41 |         14 |         83 |
+| e:\docker\custom_16\employee_time_management\views\menu.xml                    | XML        |          7 |          1 |          3 |         11 |
+| e:\docker\custom_16\employee_time_management\views\project_task_timer_view.xml | XML        |         27 |          1 |          6 |         34 |
+| e:\docker\custom_16\employee_time_management\views\res_users_views.xml         | XML        |         20 |          1 |          1 |         22 |
+| e:\docker\custom_16\employee_time_management\views\shift_management.xml        | XML        |         31 |         41 |         15 |         87 |
+| Total                                                                          |            |        629 |        383 |        159 |      1,171 |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

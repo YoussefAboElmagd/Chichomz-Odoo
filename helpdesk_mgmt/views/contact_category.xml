@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_contact_category_list">
+            <field name="name">contact.category.list</field>
+            <field name="model">customer.contact.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <!-- Add more fields as per your requirements -->
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_contact_category_list">
+            <field name="name">Category</field>
+            <field name="res_model">customer.contact.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+       
+    </data>
+</odoo>

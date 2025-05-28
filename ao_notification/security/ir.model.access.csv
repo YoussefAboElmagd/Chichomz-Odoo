@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ao_notification.access_notifications,access_notifications,ao_notification.model_user_notify,base.group_user,1,1,1,1
+
+
+
+
+
+
+
+
+
+
+
+
+
+

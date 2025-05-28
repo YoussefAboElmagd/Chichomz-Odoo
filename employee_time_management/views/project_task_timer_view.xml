@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_break_timer_inherit_view" model="ir.ui.view">
+            <field name="name">break timer</field>
+            <field name="model">attendance.breaktime</field>
+            <field name="inherit_id" ref="view_attendance_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='break_duration']" position="after">
+                    <div class="o_row" style="display: inline-block;">
+                        <field name="first_time" invisible="1"/>
+                        <label for="break_timer" attrs="{'invisible' : ['&amp;',('first_time','=', False),('break_timer','=', False)]}"/>
+                        <field name="break_timer" widget="boolean_toggle" attrs="{'invisible' : ['&amp;',('first_time','=', False),('break_timer','=', False)]}"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='break_duration']" position="after">
+                    <field name="is_user_working" invisible="1"/>
+                    <div>
+
+                        <button style="pointer-events: none;" class="oe_inline label label-default">
+                            <field name="duration" id="duration" widget="break_timer" style="color: red;" invisible="1"/>
+                        </button>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+        
+    </data>
+</odoo>
+
+
+<!-- attrs="{'invisible' : [('first_time','=', False)]}" -->

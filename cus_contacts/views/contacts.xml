@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="contacts_saleh_inherit" model="ir.ui.view">
+        <field name="name">contacts.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="after">
+
+                <page name="supplier_management" string="Supplier Management"> 
+                    <group>
+                       <group>
+                       
+                            <!-- <label for="termination_date" /> -->
+                            <field name="termination_date" string="Termination Date"/>
+                            <!-- <label for="joining_date" /> -->
+                            <field name="joining_date" string="Joining Date"/>
+                            <!-- <label for="shipping_fees" /> -->
+                            <field name="shipping_fees" string="Shipping Fees"/>
+                            <!-- <label for="contract_signed" /> -->
+                            <field name="contract_signed" string="Contract Signed"/>
+
+                       </group>
+                       <group>
+
+                            <!-- <label for="documents_shipped" /> -->
+                            <field name="documents_shipped" string="Documents Shipped"/>
+                            <!-- <label for="category" /> -->
+                            <field name="category" string="Category" widget="many2many_tags"/>
+                            <!-- <label for="status" /> -->
+                            <field name="status" string="Status"/>
+                            <!-- <label for="skq" /> -->
+                            <field name="skq" string="Sku"/>
+
+                       </group>
+                    </group>
+                </page>
+
+            </xpath>
+        </field>    
+    </record>
+
+
+
+
+</odoo>

@@ -1,0 +1,578 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+    <record
+        id="action_helpdesk_ticket_kanban_from_dashboard"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Helpdesk Ticket</field>
+        <field name="res_model">helpdesk.ticket</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">
+            {'default_team_id': active_id}
+        </field>
+        <field name="domain">[('team_id', '=', active_id)]</field>
+    </record>
+    <record id="helpdesk_ticket_view_search" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.search</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="order_number" />
+
+                <field
+                    string="Ticket"
+                    name="number"
+                    filter_domain="['|',('number', 'ilike', self),('name', 'ilike', self)]"
+                />
+
+                <field
+                    string="Phone/Mobile"
+                    name="partner_name"
+                    filter_domain="[('partner_name', 'ilike', self)]"
+
+                />
+                
+                <field name="partner_id" />
+                <field name="user_id" />
+                <field name="name" />
+                <field name="tag_ids" />
+                <field name="stage_id" />
+                <field
+                    string="Description"
+                    name="description"
+                    filter_domain="[('description', 'ilike', self)]"
+                />
+                <filter
+                    string="Unassigned"
+                    name="unassigned"
+                    domain="[('user_id','=',False)]"
+                />
+                <filter string="Open" name="open" domain="[('closed', '=', False )]" />
+                <filter
+                    string="Unattended"
+                    name="unattended"
+                    domain="[('unattended', '=', True )]"
+                />
+                <filter
+                    string="High Priority"
+                    name="high_priority"
+                    domain="[('priority','=','3')]"
+                />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="archived"
+                    domain="[('active','=',False)]"
+                />
+                <separator />
+                <filter
+                    string="My Tickets"
+                    name="mytickets"
+                    domain="[('user_id','=',uid)]"
+                />
+                <filter
+                    string="My Followed Tickets"
+                    name="my_followed_tickets"
+                    domain="[('message_is_follower', '=', True)]"
+                />
+
+                <filter string="Violated Tickets" 
+                name="violation_filter" 
+                domain="[('is_violated', '=', True)]"
+                />
+
+                <!-- <filter string="Complaint Tags" 
+                name="complaint_tags" 
+                domain="[ ('tag_ids' , '=','complaint')]"
+                /> -->
+
+                <separator />
+                <filter
+                    name="last_week"
+                    string="Last Week"
+                    domain="[('create_date','&gt;', (context_today() - datetime.timedelta(weeks=1)).strftime('%%Y-%%m-%%d') )]"
+                />
+                <separator />
+                <filter
+                    string="My Activities"
+                    name="activities_my"
+                    domain="[('activity_ids.user_id', '=', uid)]"
+                />
+                <filter
+                    string="Late Activities"
+                    name="activities_overdue"
+                    domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                    help="Show all records which has next action date is before today"
+                />
+                <filter
+                    string="Today Activities"
+                    name="activities_today"
+                    domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"
+                />
+                <filter
+                    string="Future Activities"
+                    name="activities_upcoming_all"
+                    domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))
+                  ]"
+                />
+                <filter string="Open Tickets" name="tickets_filter"
+                    domain="[('stage_id', 'not in', ['Done', 'Cancelled', 'Rejected']),
+                                  ('tag_ids', '=', 'complaint')]"
+                />
+
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Partner"
+                        name="group_partner"
+                        domain="[]"
+                        context="{'group_by':'partner_id'}"
+                    />
+                    <filter
+                        string="Team"
+                        name="group_team"
+                        domain="[]"
+                        context="{'group_by':'team_id'}"
+                    />
+                    <filter
+                        string="User"
+                        name="group_user"
+                        domain="[]"
+                        context="{'group_by':'user_id'}"
+                    />
+                    <filter
+                        string="Stage"
+                        name="group_stage"
+                        domain="[]"
+                        context="{'group_by':'stage_id'}"
+                    />
+                    <filter
+                        string="Tag"
+                        name="group_tag"
+                        domain="[]"
+                        context="{'group_by':'tag_ids'}"
+                    />
+                    <filter
+                        string="Type"
+                        name="group_type"
+                        domain="[]"
+                        context="{'group_by':'x_category_id'}"
+                    />
+                </group>
+                
+                <filter
+                    string="Description"
+                    name="description"
+                    domain="[('description', '=', self)]"
+                />
+            </search>
+        </field>
+    </record>
+    <record id="ticket_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <form string="Helpdesk Ticket">
+            <field name="closed" invisible="1" />
+            <field name="is_stage_locked" invisible="1" />
+                <header>
+                    <button
+                        string="Assign to me"
+                        name="assign_to_me"
+                        type="object"
+                        attrs="{'invisible' : [('user_id', '!=', False)]}"/>
+                       
+                    
+                    <field
+                        name="stage_id"
+                        widget="statusbar"
+                        options="{'clickable': '1', 'fold_field': 'fold'}"
+                        attrs="{'readonly':[('is_stage_locked','=',False)]}"
+                        
+                    />
+                    
+                </header>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <h1 class="oe_title">
+                            <field name="number" />
+                        </h1>
+                        <h2 class="o_row">
+                            <field name="name" />
+                        </h2>
+                    </div>
+                    <group name="main">
+                        <group>
+                            
+                            <field name="active" invisible="1" attrs="{'readonly':[('loc_desc','=',True)]}" />
+                            <!-- <field name="category_id" /> -->
+                            <field name="team_id" options='{"always_reload": True}' attrs="{'readonly':['|',('closed','=',True),('is_stage_locked','=',False)]}"/>
+                            <!-- <field name="Supplier_number" />
+                                <field name="Supplier_email" /> -->
+                                <field name="priority" widget="priority" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                                <field
+                                name="company_id"
+                                options="{'no_create': True}"
+                                groups="base.group_multi_company"
+                                attrs="{'readonly':[('loc_desc','=',True)]}"
+                                />
+                                <field name="channel_id" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="create_date" readonly="1" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="x_due_date"/>
+                                <field name="x_category_id" required="1"/>
+
+                                <field name="order_number" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="supplier_id" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="cancellation_reason" attrs="{'invisible': [('x_category_id', 'not in', ['refund_request'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="refund_amount_" attrs="{'invisible': [('x_category_id', 'not in', ['refund_request'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="refund_method" attrs="{'invisible': [('x_category_id', 'not in', ['refund_request'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="item_sku" attrs="{'invisible': [('x_category_id', 'not in', ['refund_request'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="ticket_sla" attrs="{'invisible': [('x_category_id', 'not in', ['refund_request'])],'readonly':[('loc_desc','=',True)]}" />
+                                <!-- anther condation -->
+                                <field name="customer_request" attrs="{'invisible': [('x_category_id', 'not in', ['complaint'])],'readonly':[('loc_desc','=',True)]}" />
+                                <!-- <field name="penalty" attrs="{'invisible': [('x_category_id', 'not in', ['complaint'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="penalty_amount" attrs="{'invisible': [('x_category_id', 'not in', ['complaint'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="supplier_feedback" attrs="{'invisible': [('x_category_id', 'not in', ['complaint'])],'readonly':[('loc_desc','=',True)]}"/> -->
+                               <field name="skus"
+                                    widget="many2many_tags"
+                                    attrs="{
+                                    'invisible': [('x_category_id', 'not in', ['complaint'])],
+                                        'readonly': [('loc_desc', '=', True)]
+                                    }"/>
+                               
+                                
+                                <field name="complaint_type"
+                                    attrs="{
+                                        'invisible': [('x_category_id', 'not in', ['complaint'])],
+                                       'readonly':[('loc_desc','=',True)]
+                                       }"/>
+                            
+                                <field name="refund"
+                                 attrs="{
+                                'invisible': [('x_category_id', 'not in', ['complaint'])],
+                                'readonly':[('loc_desc','=',True)],
+                                'required': [('x_category_id', '=', 'complaint')]}"/>
+
+                                <field name="refund_amount"
+                                 attrs="{
+                                'invisible': [('x_category_id', 'not in', ['complaint'])],
+                                'readonly':[('loc_desc','=',True)], 
+                                'required': [('x_category_id', '=', 'complaint')]}"/>
+                                                           
+
+                                
+
+                                <field name="attachment_d" attrs="{'invisible': [('x_category_id', 'not in', ['complaint'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <!-- anther condation -->
+                                <field name="old_supplier" attrs="{'invisible': [('x_category_id', 'not in', ['order_reassign','deduction_from_customer'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="old_product_cost" attrs="{'invisible': [('x_category_id', 'not in', ['wrong_cost'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="new_product_cost" attrs="{'invisible': [('x_category_id', 'not in', ['order_reassign','wrong_cost'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="old_shipping_cost" attrs="{'invisible': [('x_category_id', 'not in', ['extra_shipping_fees'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="new_shipping_cost" attrs="{'invisible': [('x_category_id', 'not in', ['order_reassign' , 'extra_shipping_fees'])],'readonly':[('loc_desc','=',True)]}"/>
+
+                                <field name="difference_in_shipping_cost" attrs="{'invisible': [('x_category_id', 'not in', ['order_reassign'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <!-- anther condation -->
+                                <field name="old_payment_method" attrs="{'invisible': [('x_category_id', 'not in', ['update_in_payment'])],'readonly':[('loc_desc','=',True)]}" />
+                                <field name="new_payment_method" attrs="{'invisible': [('x_category_id', 'not in', ['update_in_payment'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="total_order_amount" attrs="{'invisible': [('x_category_id', 'not in', ['update_in_payment','payment_fees','paymob_link','bank_transfer','vf_cash','stripe','cash_payments'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="paid_amount" attrs="{'invisible': [('x_category_id', 'not in', ['update_in_payment','paymob_link','bank_transfer','vf_cash','stripe','deposit_transfer','cash_payments'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="paid_at" attrs="{'invisible': [('x_category_id', 'not in', ['cash_payments'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="remaining_amount_to_be_collected" attrs="{'invisible': [('x_category_id', 'not in', ['update_in_payment'])],'readonly':[('loc_desc','=',True)]}" />
+                                <!-- anther condation -->
+                                <field name="payment_method" attrs="{'invisible': [('x_category_id', 'not in', ['payment_fees'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="required_fees" attrs="{'invisible': [('x_category_id', 'not in', ['payment_fees'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="receipt_image" attrs="{'invisible': [('x_category_id', 'not in', ['payment_fees','cash_payments'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <!-- anther condation -->
+                                <field name="payment_link" attrs="{'invisible': [('x_category_id', 'not in', ['paymob_link','stripe'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="payment_screenshot" attrs="{'invisible': [('x_category_id', 'not in', ['paymob_link','bank_transfer'])],'readonly':[('loc_desc','=',True)]}" />
+                                <!-- anther condation -->
+                                <field name="transfer_from_number" attrs="{'invisible': [('x_category_id', 'not in', ['vf_cash'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="transfer_to_number" attrs="{'invisible': [('x_category_id', 'not in', ['vf_cash'])],'readonly':[('loc_desc','=',True)]}" />
+                                <!-- anther condation -->
+                                <field name="the_real_amount_to_consider_it" attrs="{'invisible': [('x_category_id', 'not in', ['stripe'])],'readonly':[('loc_desc','=',True)]}" />
+                                <!-- anther condation -->
+                                <field name="item_sku" attrs="{'invisible': [('x_category_id', 'not in', ['supplier_shipping','deduction_from_customer'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="the_agreed_shipping_cost_with_supplier" attrs="{'invisible': [('x_category_id', 'not in', ['supplier_shipping'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="Screenshot_from_the_agreement" attrs="{'invisible': [('x_category_id', 'not in', ['supplier_shipping'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <!-- anther condation -->
+                                <field name="amount_deducted_from_the_customer" attrs="{'invisible': [('x_category_id', 'not in', ['deduction_from_customer'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="reason" attrs="{'invisible': [('x_category_id', 'not in', ['deduction_from_customer'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <!-- anther condation -->
+                                <field name="canceled_product_sku" attrs="{'invisible': [('x_category_id', 'not in', ['deposit_transfer'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="old_order_id" attrs="{'invisible': [('x_category_id', 'not in', ['deposit_transfer'])],'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="new_product_sku" attrs="{'invisible': [('x_category_id', 'not in', ['deposit_transfer'])],'readonly':[('loc_desc','=',True)]}"/>
+                               
+                        </group>
+                        <group>
+                            <field
+                            name="tag_ids"
+                            widget="many2many_tags"
+                            options="{'no_create_edit': True, 'color_field': 'color',}"
+                            attrs="{'readonly':[('loc_desc','=',True)]}"
+                            />
+                            <field name="user_ids" invisible="1" readonly="1" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                            <field name="user_id" options='{"always_reload": True}' attrs="{'readonly':['|',('closed','=',True),('is_stage_locked','=',False)]}"/>
+                            
+                            <field name="partner_id" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                            <field name="partner_name" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                            <field name="partner_email" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                            <field name="create_uid" readonly="1"/>
+                            <field name="x_team_id" string="Created by Team" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                           <!--  <field name="create_by_team" attrs="{'readonly':[('loc_desc','=',True)]}"/> -->
+                            <!-- <field name="sequence" groups="base.group_no_one" /> -->
+                            <field name="user_has_group" invisible="1"/>
+
+                            <field name="penalty"  attrs="{'readonly': [('user_has_group', '=', False)] , 'required': [('user_has_group', '=', True)]}" />
+                            <field name="route_cause" attrs="{'readonly': [('user_has_group', '=', False)], 'required': [('user_has_group', '=', True)]}"/>
+                            <field name="team" attrs="{'readonly': [('user_has_group', '=', False)] ,'required': [('user_has_group', '=', True)]}"/>
+                            <field name="new_title" attrs="{'readonly': [('user_has_group', '=', False)],'required': [('user_has_group', '=', True)]}"/>
+                            <field name="retention" attrs="{'readonly': [('user_has_group', '=', False)] ,'required': [('user_has_group', '=', True)]}"/>
+                            <field name="complaint_feedback" attrs="{'readonly': [('user_has_group', '=', False)] ,'required': [('user_has_group', '=', True)]}"/>
+                            <field name="ticket_url" readonly="1" widget="copy" invisible="1" attrs="{'invisible': [('ticket_url','=', False)]}"/>
+
+                        </group>
+                        <group name="Risk System">
+                            <field name="sla_start_time" readonly="1"/>
+                            <field name="violation_timer"/>
+                            <field name="is_violated"/>
+                            <field name="risk_timer"/>
+                            <field name= "is_risk"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="loc_desc" invisible="1" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                            <field name="description" widget="html" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                        </page>
+                        <page string="Other Information" name="other_info">
+                            <group>
+                                <field name="last_stage_update" readonly="1" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="assigned_date" readonly="1" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                                <field name="closed_date" readonly="1" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                            </group>
+                        </page>
+                    
+                        
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter" attrs="{'readonly':[('closed','=',True)]}">
+                    <field name="message_follower_ids" widget="mail_followers" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                    <field name="activity_ids" widget="mail_activity" attrs="{'readonly':[('loc_desc','=',True)]}"/>
+                    <field
+                        name="message_ids"
+                        widget="mail_thread"
+                        options="{'post_refresh': 'recipients', 'open_attachments': True}"
+                        attrs="{'readonly':[('closed','=',True)]}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="ticket_view_tree" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.tree</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="priority" widget="priority" />
+                <field name="id" widget="open_tab" string="New Tab"/>
+                <field name="sequence" widget="handle" />
+                <field name="number" decoration-bf="1" />
+                <field name="name" />
+                <field name="partner_id" optional="hide" widget="many2one_avatar" />
+                <field name="partner_name" optional="show" />
+                <field name="user_id" optional="show" widget="many2one_avatar_user" />
+                <field name="unattended" invisible="1" />
+                <field name="closed" invisible="1" />
+                <field name="x_due_date" optional="hide" />
+                <field name="supplier_id" optional="hide" />
+                <field name="skus" optional="hide" />
+                <field name="x_category_id" optional="hide" />
+
+                
+
+                <field
+                    name="tag_ids"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color'}"
+                    optional="show"
+                />
+               
+                <field name="violation_timer"  optional="hide"/>
+                <field name="is_violated"  optional="hide"/>
+                <field name="risk_timer"  optional="hide"/>
+                 <field name= "is_risk"  optional="hide"/>
+
+                <field
+                    name="create_date"
+                    widget="remaining_days"
+                    readonly="1"
+                    optional="show"
+                />
+                <field
+                    name="last_stage_update"
+                    widget="remaining_days"
+                    optional="show"
+                />
+                <field name="activity_ids" widget="list_activity" optional="hide" />
+                <field
+                    name="stage_id"
+                    widget="badge"
+                    decoration-success="not unattended and not closed"
+                    decoration-info="unattended == True"
+                    decoration-muted="closed == True"
+                    attrs="{'readonly':[('closed','=',True)]}"
+                />
+                 <field name="ticket_url" optional="hide" />
+                <field name="description" optional="hide" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_helpdesk_ticket_kanban" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.kanban</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="priority" eval="100" />
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_group_by="stage_id">
+                <field name="number" />
+                <field name="active" />
+                <field name="name" />
+                <field name="partner_name" />
+                <field name="user_id" />
+                <field name="sequence" />
+                <field name="color" />
+                <field name="is_stage_locked" invisible="1" />
+                <field name="stage_id" attrs="{'readonly':[('is_stage_locked','=',True)]}" />
+                
+                <field name="priority" widget="priority" />
+                <field name="assigned_date" />
+                <progressbar
+                    field="activity_state"
+                    colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"
+                />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_content oe_kanban_global_click"
+                        >
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <field name="name" />
+                                    <field
+                                        name="tag_ids"
+                                        widget="many2many_tags"
+                                        options="{'color_field': 'color'}"
+                                    />
+                                    <field name="number" />
+                                    <small class="o_kanban_record_subtitle text-muted">
+                                        <field name="partner_id" />
+                                    </small>
+                                </div>
+                                <div
+                                    class="o_dropdown_kanban dropdown"
+                                    t-if="!selection_mode"
+                                    groups="base.group_user"
+                                >
+                                    <a
+                                        role="button"
+                                        class="dropdown-toggle o-no-caret btn"
+                                        data-toggle="dropdown"
+                                        data-display="static"
+                                        href="#"
+                                        aria-label="Dropdown menu"
+                                        title="Dropdown menu"
+                                    >
+                                        <span class="fa fa-ellipsis-v" />
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a
+                                            t-if="widget.editable"
+                                            role="menuitem"
+                                            type="edit"
+                                            class="dropdown-item"
+                                        >Edit</a>
+                                        <a
+                                            t-if="widget.deletable"
+                                            role="menuitem"
+                                            type="delete"
+                                            class="dropdown-item"
+                                        >Delete</a>
+                                        <div
+                                            role="separator"
+                                            class="dropdown-divider"
+                                        />
+                                        <ul
+                                            class="oe_kanban_colorpicker"
+                                            data-field="color"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_body" />
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="priority" widget="priority" />
+                                    <field
+                                        name="activity_ids"
+                                        widget="kanban_activity"
+                                        related="activity_state"
+                                    />
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field
+                                        name="kanban_state"
+                                        widget="state_selection"
+                                    />
+                                    <field name="activity_state" invisible="1" />
+                                    <img
+                                        t-att-src="kanban_image('res.users', 'image_128', record.user_id.raw_value)"
+                                        t-att-title="record.user_id.value"
+                                        width="24"
+                                        height="24"
+                                        class="oe_kanban_avatar o_image_24_cover float-right"
+                                        t-att-alt="record.user_id.value"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="helpdesk_ticket_views_pivot" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.pivot</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <pivot string="Pivot Analysis" disable_linking="True">
+                <field name="team_id" type="row" />
+                <field name="assigned_date" type="col" />
+            </pivot>
+        </field>
+    </record>
+    <record id="action_duplicate_ticket" model="ir.actions.server">
+        <field name="name">Duplicate</field>
+        <field name="model_id" ref="model_helpdesk_ticket" />
+        <field name="binding_model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_duplicate_tickets()
+        </field>
+    </record>
+    <record id="model_helpdesk_ticket_action_share" model="ir.actions.server">
+        <field name="name">Share</field>
+        <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
+        <field name="binding_model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_share()</field>
+    </record>
+</odoo>
