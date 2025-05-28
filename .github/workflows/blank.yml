@@ -1,0 +1,63 @@
+name: Simple Odoo Module Deploy
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y sshpass rsync
+        
+    - name: Deploy to Server
+      env:
+        SSHPASS: ${{ secrets.SSH_PASSWORD }}
+      run: |
+        echo "🚀 Starting deployment to Odoo server..."
+        
+        # Test connection
+        echo "🔌 Testing server connection..."
+        sshpass -e ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 \
+          ${{ secrets.SSH_USER }}@${{ secrets.SERVER_HOST }} "echo 'Connection successful'"
+        
+        # Sync files directly to Odoo modules directory
+        echo "📦 Syncing modules to server..."
+        sshpass -e rsync -avz --delete \
+          --exclude='.git*' \
+          --exclude='README.md' \
+          --exclude='.github' \
+          -e "ssh -o StrictHostKeyChecking=no" \
+          ./ ${{ secrets.SSH_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.ODOO_MODULES_PATH }}/
+        
+        # Restart Odoo service
+        echo "🔄 Restarting Odoo service..."
+        sshpass -e ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          # Set proper permissions
+          sudo chown -R odoo:odoo ${{ secrets.ODOO_MODULES_PATH }}
+          sudo chmod -R 755 ${{ secrets.ODOO_MODULES_PATH }}
+          
+          # Restart service
+          sudo systemctl restart ${{ secrets.ODOO_SERVICE_NAME }}
+          
+          # Wait and check status
+          sleep 10
+          if sudo systemctl is-active ${{ secrets.ODOO_SERVICE_NAME }} >/dev/null 2>&1; then
+            echo "✅ Odoo service restarted successfully"
+            echo "📅 Deployment completed at: $(date)"
+          else
+            echo "❌ Failed to restart Odoo service"
+            sudo systemctl status ${{ secrets.ODOO_SERVICE_NAME }}
+            exit 1
+          fi
+        EOF
+        
+        echo "🎉 Deployment completed successfully!"
