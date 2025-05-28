@@ -2,7 +2,7 @@ name: Simple Odoo Module Deploy
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ staging ]
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
