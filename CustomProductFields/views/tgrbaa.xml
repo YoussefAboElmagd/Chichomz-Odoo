@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_my_model_list_b">
+            <field name="name">tgrba.jobpos.list</field>
+            <field name="model">tgrba.jobpos</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <!-- Add more fields as per your requirements -->
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_my_model_list_b">
+            <field name="name">Project jobs</field>
+            <field name="res_model">tgrba.jobpos</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+       
+    </data>
+</odoo>

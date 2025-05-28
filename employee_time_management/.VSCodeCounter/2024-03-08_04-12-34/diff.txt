@@ -1,0 +1,40 @@
+Date : 2024-03-08 04:12:34
+Directory : e:\docker\custom_16\employee_time_management\views
+Total : 12 files,  -4 codes, 29 comments, -16 blanks, all 9 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| XML      |          6 |        176 |        107 |         57 |        340 |
+| Python   |          6 |       -180 |        -78 |        -73 |       -331 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                           | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                              |         12 |         -4 |         29 |        -16 |          9 |
+| . (Files)                                                                      |          6 |        176 |        107 |         57 |        340 |
+| ..                                                                             |          6 |       -180 |        -78 |        -73 |       -331 |
+| ..\models                                                                      |          6 |       -180 |        -78 |        -73 |       -331 |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                       | language | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| e:\docker\custom_16\employee_time_management\models\__init__.py                | Python   |         -5 |        -20 |         -1 |        -26 |
+| e:\docker\custom_16\employee_time_management\models\break_timer.py             | Python   |        -35 |        -18 |        -17 |        -70 |
+| e:\docker\custom_16\employee_time_management\models\breaktime.py               | Python   |        -67 |        -17 |        -28 |       -112 |
+| e:\docker\custom_16\employee_time_management\models\idle_time.py               | Python   |        -18 |         -2 |        -12 |        -32 |
+| e:\docker\custom_16\employee_time_management\models\res_users.py               | Python   |        -17 |        -21 |         -4 |        -42 |
+| e:\docker\custom_16\employee_time_management\models\shift_management.py        | Python   |        -38 |          0 |        -11 |        -49 |
+| e:\docker\custom_16\employee_time_management\views\break_view.xml              | XML      |         63 |         22 |         18 |        103 |
+| e:\docker\custom_16\employee_time_management\views\idle_view.xml               | XML      |         28 |         41 |         14 |         83 |
+| e:\docker\custom_16\employee_time_management\views\menu.xml                    | XML      |          7 |          1 |          3 |         11 |
+| e:\docker\custom_16\employee_time_management\views\project_task_timer_view.xml | XML      |         27 |          1 |          6 |         34 |
+| e:\docker\custom_16\employee_time_management\views\res_users_views.xml         | XML      |         20 |          1 |          1 |         22 |
+| e:\docker\custom_16\employee_time_management\views\shift_management.xml        | XML      |         31 |         41 |         15 |         87 |
+| Total                                                                          |          |         -4 |         29 |        -16 |          9 |
++--------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

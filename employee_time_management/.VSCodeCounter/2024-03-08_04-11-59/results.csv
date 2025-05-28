@@ -1,0 +1,9 @@
+"filename", "language", "(Unsupported)", "XML", "CSS", "JavaScript", "comment", "blank", "total"
+"e:\docker\custom_16\employee_time_management\static\description\icon.png", "(Unsupported)", 0, 0, 0, 0, 0, 0, 0
+"e:\docker\custom_16\employee_time_management\static\description\icon.svg", "XML", 0, 1, 0, 0, 0, 0, 1
+"e:\docker\custom_16\employee_time_management\static\src\css\systray.css", "CSS", 0, 0, 8, 0, 0, 0, 8
+"e:\docker\custom_16\employee_time_management\static\src\js\systray.js", "JavaScript", 0, 0, 0, 96, 152, 9, 257
+"e:\docker\custom_16\employee_time_management\static\src\js\timer.js", "JavaScript", 0, 0, 0, 78, 3, 10, 91
+"e:\docker\custom_16\employee_time_management\static\src\xml\systray.xml", "XML", 0, 11, 0, 0, 1, 0, 12
+"e:\docker\custom_16\employee_time_management\static\src\xml\timer.xml", "XML", 0, 7, 0, 0, 0, 1, 8
+"Total", "-", 0, 19, 8, 174, 156, 20, 377

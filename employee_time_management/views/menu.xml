@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_time_management" name="Time Management" sequence="10" action="shift_management_action_overview"/>
+    <menuitem id="menu_shift_management" name="General" sequence="-1" parent="menu_time_management" action="shift_management_action_overview"/>
+    <menuitem id="menu_breaktime" name="Take a Break" sequence="10" parent="menu_time_management" action="breaktime_action_overview"/>
+    <menuitem id="menu_idle_time" name="Idle Time" sequence="10" parent="menu_time_management" action="idle_time_action_overview"/>
+    
+</odoo>
+
+<!-- parent="hr_attendance.menu_hr_attendance_root" -->

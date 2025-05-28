@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+        <record id="ir_rule_break_time_mngmnt_admin" model="ir.rule">
+            <field name="name">Admin Breaks</field>
+            <field name="model_id" ref="model_attendance_breaktime"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('employee_time_management.group_emp_time_mngmnt_admin'))]"/>
+        </record>
+
+        <record id="ir_rule_break_time_mngmnt_team" model="ir.rule">
+            <field name="name">Team Breaks</field>
+            <field name="model_id" ref="model_attendance_breaktime"/>
+             <field name="domain_force">['|', '|', '|',
+                ('employee_id.user_id', '=', user.id),
+                ('employee_id.department_id.manager_id.user_id', '=', user.id),
+                ('employee_id.parent_id.user_id', '=', user.id),
+                ('employee_id.coach_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('employee_time_management.group_emp_time_mngmnt_team_approver'))]"/>
+        </record>
+        
+        <record id="ir_rule_break_time_mngmnt_employee" model="ir.rule">
+            <field name="name">Employee Breaks</field>
+            <field name="model_id" ref="model_attendance_breaktime"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('employee_time_management.group_emp_time_mngmnt_user'))]"/>
+        </record>
+
+
+        <record id="ir_rule_idle_time_mngmnt_admin" model="ir.rule">
+            <field name="name">Admin Idle</field>
+            <field name="model_id" ref="model_attendance_idle_time"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('employee_time_management.group_emp_time_mngmnt_admin'))]"/>
+        </record>
+        <record id="ir_rule_idle_time_mngmnt_team" model="ir.rule">
+            <field name="name">Team Idle</field>
+            <field name="model_id" ref="model_attendance_idle_time"/>
+             <field name="domain_force">['|', '|', '|',
+                ('employee_id.user_id', '=', user.id),
+                ('employee_id.department_id.manager_id.user_id', '=', user.id),
+                ('employee_id.parent_id.user_id', '=', user.id),
+                ('employee_id.coach_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('employee_time_management.group_emp_time_mngmnt_team_approver'))]"/>
+        </record>
+        
+        <record id="ir_rule_idle_time_mngmnt_employee" model="ir.rule">
+            <field name="name">Employee Idle</field>
+            <field name="model_id" ref="model_attendance_idle_time"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('employee_time_management.group_emp_time_mngmnt_user'))]"/>
+        </record>
+
+
+        <record id="ir_rule_general_time_mngmnt_admin" model="ir.rule">
+            <field name="name">Admin Time General</field>
+            <field name="model_id" ref="model_attendance_shift_management"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('employee_time_management.group_emp_time_mngmnt_admin'))]"/>
+        </record>
+        <record id="ir_rule_general_time_mngmnt_team" model="ir.rule">
+            <field name="name">Team Time General</field>
+            <field name="model_id" ref="model_attendance_shift_management"/>
+             <field name="domain_force">['|', '|', '|',
+                ('employee_id.user_id', '=', user.id),
+                ('employee_id.department_id.manager_id.user_id', '=', user.id),
+                ('employee_id.parent_id.user_id', '=', user.id),
+                ('employee_id.coach_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('employee_time_management.group_emp_time_mngmnt_team_approver'))]"/>
+        </record>
+        
+        <record id="ir_rule_general_time_mngmnt_employee" model="ir.rule">
+            <field name="name">Employee Time General</field>
+            <field name="model_id" ref="model_attendance_shift_management"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('employee_time_management.group_emp_time_mngmnt_user'))]"/>
+        </record>
+
+        
+
+</odoo>

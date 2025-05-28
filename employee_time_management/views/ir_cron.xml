@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+<!-- Schedule action for generating automatic database backup-->
+        <record id="ir_cron_create_emp_records_time_mngmnt" model="ir.cron">
+            <field name="name">Time Management Create Records</field>
+            <field name="model_id" ref="employee_time_management.model_attendance_shift_management"/>
+            <field name="state">code</field>
+            <field name="code">model._create_record_time_mngmnt()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True" />
+        </record>
+    </data>
+</odoo>

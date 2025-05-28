@@ -1,0 +1,14 @@
+"filename", "language", "(Unsupported)", "Python", "comment", "blank", "total"
+"e:\docker\custom_16\employee_time_management\models\__init__.py", "Python", 0, 5, 20, 1, 26
+"e:\docker\custom_16\employee_time_management\models\__pycache__\__init__.cpython-39.pyc", "(Unsupported)", 0, 0, 0, 0, 0
+"e:\docker\custom_16\employee_time_management\models\__pycache__\break_timer.cpython-39.pyc", "(Unsupported)", 0, 0, 0, 0, 0
+"e:\docker\custom_16\employee_time_management\models\__pycache__\breaktime.cpython-39.pyc", "(Unsupported)", 0, 0, 0, 0, 0
+"e:\docker\custom_16\employee_time_management\models\__pycache__\idle_time.cpython-39.pyc", "(Unsupported)", 0, 0, 0, 0, 0
+"e:\docker\custom_16\employee_time_management\models\__pycache__\res_users.cpython-39.pyc", "(Unsupported)", 0, 0, 0, 0, 0
+"e:\docker\custom_16\employee_time_management\models\__pycache__\shift_management.cpython-39.pyc", "(Unsupported)", 0, 0, 0, 0, 0
+"e:\docker\custom_16\employee_time_management\models\break_timer.py", "Python", 0, 35, 18, 17, 70
+"e:\docker\custom_16\employee_time_management\models\breaktime.py", "Python", 0, 67, 17, 28, 112
+"e:\docker\custom_16\employee_time_management\models\idle_time.py", "Python", 0, 18, 2, 12, 32
+"e:\docker\custom_16\employee_time_management\models\res_users.py", "Python", 0, 17, 21, 4, 42
+"e:\docker\custom_16\employee_time_management\models\shift_management.py", "Python", 0, 38, 0, 11, 49
+"Total", "-", 0, 180, 78, 73, 331
